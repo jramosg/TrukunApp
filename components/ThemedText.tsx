@@ -1,12 +1,6 @@
 import { Text, type TextProps, StyleSheet } from "react-native";
 import { useThemeColor } from "@/hooks/useThemeColor";
-import {
-  brandColors,
-  Colors,
-  TrukunColorKeys,
-  TrukunColors,
-} from "@/constants/Colors";
-import { useTheme } from "@react-navigation/native";
+import { TrukunColors } from "@/constants/Colors";
 
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
@@ -18,9 +12,11 @@ export type ThemedTextProps = TextProps & {
     | "subtitle"
     | "link"
     | "headline1"
-    | "headline2";
+    | "headline2"
+    | "card-title"
+    | "subhead";
   align?: "left" | "center" | "right";
-  color?: TrukunColorKeys; // Color prop for dynamic color, including predefined colors or custom ones
+  color?: TrukunColors; // Color prop for dynamic color, including predefined colors or custom ones
 };
 
 export function ThemedText({
@@ -29,12 +25,13 @@ export function ThemedText({
   darkColor,
   type = "default",
   align = "left",
-  color, // Color passed as prop
+  color = "text", // Color passed as prop
   ...rest
 }: ThemedTextProps) {
-  const textColor = color
-    ? brandColors[color] || color
-    : useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  const textColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    color
+  );
 
   const textAlignStyle = styles[align];
 
@@ -50,6 +47,8 @@ export function ThemedText({
         type === "link" ? styles.link : undefined,
         type === "headline1" ? styles.headline1 : undefined,
         type === "headline2" ? styles.headline2 : undefined,
+        type === "card-title" ? styles.cardTitle : undefined,
+        type === "subhead" ? styles.cardTitle : undefined,
 
         style,
       ]}
@@ -91,6 +90,16 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 600,
     lineHeight: 28.13,
+  },
+  subhead: {
+    fontWeight: 500,
+    fontSize: 16,
+    lineHeight: 18.75,
+  },
+  cardTitle: {
+    fontSize: 12,
+    fontWeight: 700,
+    lineHeight: 14.06,
   },
   // Text alignment styles
   left: {

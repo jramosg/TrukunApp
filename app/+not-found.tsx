@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Image, StyleSheet } from "react-native";
 import { useTranslation } from "react-i18next";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";

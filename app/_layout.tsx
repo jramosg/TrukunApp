@@ -12,15 +12,15 @@ import { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { Ionicons } from "@expo/vector-icons";
-import { Redirect, router, Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import Auth from "@/components/Auth";
-import { brandColors } from "@/constants/Colors";
+import { brandColors, Colors } from "@/constants/Colors";
 import { supabase } from "@/lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import { useSessionStore } from "@/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { useTheme } from "@/hooks/useTheme";
 
-// Prevent splash screen from auto-hiding
 SplashScreen.preventAutoHideAsync();
 
 export const unstable_settings = {
@@ -31,7 +31,9 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const { theme: selectedTheme } = useTheme();
+  const colorScheme = selectedTheme ?? useColorScheme();
+
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -50,7 +52,7 @@ export default function RootLayout() {
       if (event == "PASSWORD_RECOVERY") {
         router.navigate("/password-recovery");
       } else {
-        router.navigate("/");
+        router.replace("/");
       }
     });
   }, []);
@@ -70,20 +72,22 @@ export default function RootLayout() {
       ...DarkTheme,
       colors: {
         ...DarkTheme.colors,
-        primary: brandColors.primaryMain,
         ...brandColors,
+        background: Colors.dark.background,
+        card: Colors.dark.paper,
       },
     },
     light: {
       ...DefaultTheme,
       colors: {
         ...DefaultTheme.colors,
-        primary: brandColors.primaryMain,
         ...brandColors,
+        background: Colors.light.background,
+        card: Colors.light.paper,
       },
     },
   };
-
+  console.log("aa", colorScheme, theme.light);
   return (
     <ThemeProvider value={colorScheme === "dark" ? theme.dark : theme.light}>
       <SafeAreaProvider>

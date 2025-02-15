@@ -6,7 +6,7 @@
 const tintColorLight = "#0a7ea4";
 const tintColorDark = "#fff";
 
-export type TrukunColors = {
+export type brandColors = {
   primary100: string;
   primary200: string;
   primary300: string;
@@ -17,40 +17,50 @@ export type TrukunColors = {
   primary800: string;
   primary900: string;
   primary1000: string;
-  dangerMain: string
+  dangerMain: string;
+  tabIconSelected: string;
+  primary: string,
 };
 
-export type TrukunColorKeys = keyof TrukunColors;
+const primaryColor:string = "#784dbf"
 
-export const brandColors: TrukunColors = {
+export const brandColors: brandColors = {
+  primary: primaryColor,
   primary100: "#9f65fc",
   primary200: "#9c63f7",
   primary300: "#8555d4",
   primary400: "#925de8",
-  primaryMain: "#784dbf",
+  primaryMain: primaryColor,
   primary600: "#6c44ab",
   primary700: "#5f3c96",
   primary800: "#523482",
   primary900: "#342c6e",
   primary1000: "#382459",
   dangerMain: "#FF4961",
+  tabIconSelected: primaryColor,
 };
 
 export const Colors = {
   light: {
     text: "#11181C",
-    background: "#fff",
+    secondaryText: "#6F7780",
+    background: "#fafafa",
     tint: tintColorLight,
     icon: "#687076",
     tabIconDefault: "#687076",
-    tabIconSelected: tintColorLight,
+    paper: "#ffffff",
+    ...brandColors,
   },
   dark: {
     text: "#ECEDEE",
-    background: "#151718",
+    secondaryText: "#9BA1A6",
+    background: "#121212",
     tint: tintColorDark,
     icon: "#9BA1A6",
     tabIconDefault: "#9BA1A6",
-    tabIconSelected: tintColorDark,
+    paper: "#1e1e1e",
+    ...brandColors,
   },
 };
+
+export type TrukunColors = keyof typeof Colors.light & keyof typeof Colors.dark;
