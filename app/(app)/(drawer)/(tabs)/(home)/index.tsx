@@ -14,8 +14,7 @@ import React from "react";
 import { Link } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { useSessionStore } from "@/store";
-import HomeNews from "@/components/Home/News";
-import { homeStyles } from "@/components";
+import { homeStyles, QuickAccess, HomeNews } from "@/components/Home";
 
 export default function HomeScreen() {
   const { t } = useTranslation();
@@ -32,7 +31,7 @@ export default function HomeScreen() {
         </ThemedText>
       </View>
       <HomeNews></HomeNews>
-      <ThemedText>AAA</ThemedText>
+      <QuickAccess></QuickAccess>
     </ThemedView>
   );
 }

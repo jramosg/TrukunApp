@@ -40,7 +40,6 @@ export default function DrawerLayout() {
           name="(tabs)"
           options={{
             drawerLabel: "Home",
-            title: "settings",
             drawerType: "slide",
             headerShown: false,
             drawerItemStyle: { display: "none" },

@@ -2,10 +2,11 @@ import { View, ViewProps, Dimensions, Image, Pressable } from "react-native";
 import Carousel, { CarouselRenderItem } from "react-native-reanimated-carousel";
 import { AnimatedProps } from "react-native-reanimated";
 import { useTranslation } from "react-i18next";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import Card from "@/components/Card";
 import { ThemedText } from "@/components/ThemedText";
 import styles from "./styles";
+import { useState } from "react";
 
 // Update the NewsItem interface to include a description
 interface NewsItem {
@@ -60,17 +61,21 @@ const exampleNews: NewsItem[] = [
 interface SlideItemProps extends AnimatedProps<ViewProps> {
   index?: number;
   new: NewsItem;
+  scroll: boolean;
 }
 
 const SlideItem: React.FC<SlideItemProps> = ({
   new: { image, title, section, description, id },
-  index,
+  scroll,
 }) => {
+  console.log(scroll);
   return (
     <Pressable
       style={({ pressed }) => [{ opacity: pressed ? 0.7 : 1.0 }]}
       onPress={() => {
-        router.navigate(`/news/${id}`);
+        if (!scroll) {
+          router.navigate(`/news/${id}`);
+        }
       }}
     >
       <Card elevation={5} style={styles.card}>
@@ -98,12 +103,22 @@ const SlideItem: React.FC<SlideItemProps> = ({
 };
 
 const renderItem: CarouselRenderItem<NewsItem> = (props) => {
-  return <SlideItem key={props.index} index={props.index} new={props.item} />;
+  console.log(props);
+  return (
+    <SlideItem
+      key={props.index}
+      index={props.index}
+      new={props.item}
+      scroll={props.scroll}
+    />
+  );
 };
 
 function HomeNews() {
   const window = Dimensions.get("window");
   const { t } = useTranslation();
+  const [scroll, setScroll] = useState<boolean>(false);
+
   return (
     <View>
       <ThemedText type="subhead" style={[styles.paddingHor]}>
@@ -123,8 +138,9 @@ function HomeNews() {
             parallaxScrollingScale: 0.9,
             parallaxScrollingOffset: 50,
           }}
-          renderItem={renderItem}
-         
+          renderItem={(props) => renderItem({ ...props, scroll: scroll })}
+          onScrollStart={() => setScroll(true)}
+          onScrollEnd={() => setScroll(false)}
         />
       </View>
     </View>

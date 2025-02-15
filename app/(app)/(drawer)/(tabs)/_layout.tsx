@@ -9,27 +9,19 @@ import {
   View,
 } from "react-native";
 import { HapticTab } from "@/components/HapticTab";
-import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItem,
-  DrawerItemList,
-} from "@react-navigation/drawer";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { Drawer } from "expo-router/drawer";
 import { Ionicons } from "@expo/vector-icons";
 
 import { Image } from "react-native";
 import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { ThemedPressable, TrukunHeader } from "@/components";
+import { Avatar } from "@/components";
+import { useSessionStore } from "@/store";
 
 function AvatarHeader() {
   const navigation = useNavigation();
+  const { user } = useSessionStore();
   return (
     <View style={{ flexDirection: "row", alignItems: "center" }}>
       {router.canGoBack() && (
@@ -43,17 +35,7 @@ function AvatarHeader() {
         </TouchableOpacity>
       )}
       <Pressable onPress={() => navigation.openDrawer()}>
-        <Image
-          source={{
-            uri: "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/vadim.png",
-          }}
-          style={{
-            width: 30,
-            aspectRatio: 1,
-            borderRadius: 40,
-            marginLeft: 10,
-          }}
-        />
+        <Avatar name={user?.name || user?.email || ""} src={user?.picture} />
       </Pressable>
     </View>
   );
@@ -103,13 +85,14 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="(index)" // This is your home tab
+        name="(home)" // This is your home tab
         options={getTabOptions({
           title: "Hasiera",
           icon: "home",
           iconOutline: "home-outline",
         })}
       />
+
       <Tabs.Screen
         name="(explore)"
         options={getTabOptions({

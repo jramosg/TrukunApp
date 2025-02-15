@@ -23,12 +23,14 @@ import { useTheme } from "@/hooks/useTheme";
 
 SplashScreen.preventAutoHideAsync();
 
+
 export const unstable_settings = {
-  initialRouteName: "explore",
-  settings: {
+  initialRouteName: "index",
+  explore: {
     initialRouteName: "explore",
   },
 };
+
 
 export default function RootLayout() {
   const { theme: selectedTheme } = useTheme();
@@ -51,9 +53,7 @@ export default function RootLayout() {
       setSession(session);
       if (event == "PASSWORD_RECOVERY") {
         router.navigate("/password-recovery");
-      } else {
-        router.replace("/");
-      }
+      } 
     });
   }, []);
 
@@ -87,7 +87,6 @@ export default function RootLayout() {
       },
     },
   };
-  console.log("aa", colorScheme, theme.light);
   return (
     <ThemeProvider value={colorScheme === "dark" ? theme.dark : theme.light}>
       <SafeAreaProvider>

@@ -20,6 +20,7 @@ export type brandColors = {
   dangerMain: string;
   tabIconSelected: string;
   primary: string,
+  primaryMainContrast: string;
 };
 
 const primaryColor:string = "#784dbf"
@@ -38,6 +39,7 @@ export const brandColors: brandColors = {
   primary1000: "#382459",
   dangerMain: "#FF4961",
   tabIconSelected: primaryColor,
+  primaryMainContrast: "#ffffff",
 };
 
 export const Colors = {

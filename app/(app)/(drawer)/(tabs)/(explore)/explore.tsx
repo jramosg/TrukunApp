@@ -8,7 +8,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { Link } from "expo-router";
 
-export default function TabTwoScreen() {
+export default function ExplorePage() {
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
@@ -24,9 +24,9 @@ export default function TabTwoScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Exploaaare</ThemedText>
       </ThemedView>
-      <Link href="/settings" asChild>
+      <Link href="/news/1" asChild>
         <Pressable>
-          <ThemedText>Home</ThemedText>
+          <ThemedText>neess</ThemedText>
         </Pressable>
       </Link>
       <ThemedText>

@@ -5,7 +5,7 @@ import TrukunToast, { ToastRef } from "./TrukunToast";
 import ThemeSwitch from "./ThemeSwitch";
 import { ThemedPressable } from "./ThemedPressable";
 import HomeNews from "./Home/News";
-import homeStyles from "./Home/styles";
+import Avatar from "./Avatar";
 
 export {
   Card,
@@ -15,7 +15,7 @@ export {
   TrukunColors,
   ThemeSwitch,
   ThemedPressable,
-  homeStyles,
   HomeNews,
   cardBorderRadius,
+  Avatar,
 };
